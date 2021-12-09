@@ -55,7 +55,7 @@ class MediaDownloader():
             if link is None:
                 print("link is none")
                 self.get_info()
-                stream = self.audio.streams.filter(only_audio=True).order_by('abr').desc().first()
+                stream = self.audio.streams.filter(only_audio=True, file_extension='mp4').order_by('abr').desc().first()
                 create_dir(f"{self.download_location}/audio/")
                 stream.download(output_path=f"{self.download_location}/audio/")
             else:
@@ -63,7 +63,7 @@ class MediaDownloader():
                 audio = YouTube(link, on_progress_callback=self.on_progress_callback,
                                     on_complete_callback=self.on_complete_callback)
                 self.get_info(audio=audio)
-                stream = self.audio.streams.filter(only_audio=True).order_by('abr').desc().first()
+                stream = self.audio.streams.filter(only_audio=True, file_extension='mp4').order_by('abr').desc().first()
                 
                 stream.download(
                         output_path=f"{self.download_location}/playlists/playlist-{outnum}/")
@@ -166,4 +166,3 @@ class PlaylistDownloader(MediaDownloader):
                     on_progress_callback=self.on_progress_callback,
                     on_complete_callback=self.on_complete_callback,
                 ).video.download(link, outnum)
-

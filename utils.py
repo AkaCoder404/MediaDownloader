@@ -7,7 +7,7 @@ def get_output_number(dst):
         int: Last output folder number
     """
     data = os.listdir(dst)
-    print(data)
+    print("dir", data)
     if not data == []:
         last_record = sorted(data)[-1]
         print(last_record)
